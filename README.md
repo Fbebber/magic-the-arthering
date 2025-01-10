@@ -10,6 +10,6 @@ npm install
 npm run dev
 npm run tailwind
 
-// this is necessary to generate cards with timer (each 5 minutes)
+// Generate cards with timer (5 minutes each)
 npm run json
 ```
