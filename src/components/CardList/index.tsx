@@ -46,7 +46,7 @@ function CardList({ filter, amount, sizes, visibility }: CardListType) {
                                 <Card item={item} sizes={sizes.card} />
                             </div>
                         )
-                    }) : [...Array(amount)].map((i) => {
+                    }) : [...Array(amount)].map((_e, i) => {
                         return (<div key={`${filter}${i}`} className={`${sizes.card} relative bg-black bg-opacity-50 rounded-[17px]`}><div className="loader"></div></div>)
                     })
                 }
