@@ -1,0 +1,3 @@
+// const colorsConfig = [
+//     'blue'
+// ]
