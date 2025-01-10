@@ -5,14 +5,15 @@ function User() {
     const [userMenu, setUserMenu] = useState(false);
     const [rankingMenu, setRankingMenu] = useState(false);
 
-    const escFunction = useCallback((event) => {
+    const escFunction = useCallback((event: KeyboardEvent) => {
         if (event.key === "Escape") {
             setUserMenu(false);
         }
     }, []);
 
-    const clickOutside = useCallback((event) => {
-        if (event.target.classList.contains('jsUserMenu')) {
+    const clickOutside = useCallback((e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains('jsUserMenu')) {
             setUserMenu(false);
         }
     }, []);

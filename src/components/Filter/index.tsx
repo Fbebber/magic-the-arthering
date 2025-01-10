@@ -1,4 +1,4 @@
-function Filter({ currentFilter, setCurrentFilter }) {
+function Filter({ currentFilter, setCurrentFilter }: { currentFilter: string, setCurrentFilter: (arg0: string) => void }) {
     const classActive = 'bg-white bg-opacity-20 border-gray-400 border px-2 py-1 rounded-md text-white'
     return (
         <div className="flex gap-5 justify-center mb-4 mt-2">

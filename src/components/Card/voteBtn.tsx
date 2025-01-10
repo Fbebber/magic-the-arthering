@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import CardListContext from "../../context/CardList";
 
-function VoteBtn({ id }) {
+function VoteBtn({ id }: { id: string }) {
     const [active, setActive] = useState(false);
     const { cardSelect, setCardSelected } = useContext(CardListContext);
 

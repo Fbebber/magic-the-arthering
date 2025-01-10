@@ -1,15 +1,18 @@
 import { useState } from "react";
-import Zoom from 'react-img-zoom'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import Zoom from 'react-img-zoom';
+import ImgPreviewBtnType from "../../types/ImgPreviewBtn";
 
 const ImgPrevActive = {
     'active': 'bg-white bg-opacity-30 border-white',
     'normal': 'bg-transparet border-white'
 }
 
-function ImagePreview({ image_uris, flavor_text }) {
+function ImagePreview({ image_uris, flavor_text }: { image_uris: { normal: string, art_crop: string }, flavor_text: string }) {
     const [imgDisplayed, setImgDisplayed] = useState<string>('card');
 
-    var currentArtLink = (function () {
+    const currentArtLink = (function () {
         if (imgDisplayed === 'card') return image_uris.normal;
         if (imgDisplayed === 'art_crop') return image_uris.art_crop;
     })();
@@ -17,7 +20,9 @@ function ImagePreview({ image_uris, flavor_text }) {
     return (
         <>
             {imgDisplayed === 'card' && <img className="max-h-[90%] rounded-[28px]" src={image_uris.normal} />}
-            {imgDisplayed === 'art_crop' && <div className="rounded-[28px] overflow-hidden" height={457} width={626}><Zoom height={457} width={626} zoomScale={3} img={image_uris.art_crop} /></div>}
+            {imgDisplayed === 'art_crop' && <div className="rounded-[28px] overflow-hidden" style={{ height: '457px', width: '626px' }}>
+                <Zoom height={457} width={626} zoomScale={3} img={image_uris.art_crop} />
+            </div>}
             <div className={'absolute right-3 top-1/2 -translate-y-1/2 flex gap-2 flex-col items-end'}>
                 <ImgPreviewBtn setImgDisplayed={setImgDisplayed} type="card" img={imgDisplayed}>Card</ImgPreviewBtn>
                 <ImgPreviewBtn setImgDisplayed={setImgDisplayed} type="art_crop" img={imgDisplayed}>Art</ImgPreviewBtn>
@@ -29,12 +34,15 @@ function ImagePreview({ image_uris, flavor_text }) {
     )
 }
 
-function ImgPreviewBtn({ type, img, children, setImgDisplayed, link }) {
-    function changeImgPreview() {
-        setImgDisplayed(type);
-    }
+function ImgPreviewBtn({ type, img, children, setImgDisplayed, link }: ImgPreviewBtnType) {
 
-    if (type !== 'external_link') {
+    if (setImgDisplayed !== undefined) {
+        const refFunc = setImgDisplayed;
+
+        function changeImgPreview() {
+            refFunc(type);
+        }
+
         return (
             <button onClick={changeImgPreview} className={`text-white px-3 py-1.5 rounded-md border ${img === type ? ImgPrevActive['active'] : ImgPrevActive['normal']}`}>{children}</button>
         )

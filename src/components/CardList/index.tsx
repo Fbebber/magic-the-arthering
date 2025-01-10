@@ -18,7 +18,7 @@ function CardList({ filter, amount, sizes, visibility }: CardListType) {
 
     const [Cards, setCards] = useState<[] | CardType[]>([]);
 
-    const [cardSelect, setCardSelected] = useState<null>(null);
+    const [cardSelect, setCardSelected] = useState<null | string>(null);
 
     useEffect(() => {
         async function getData() {
@@ -46,7 +46,7 @@ function CardList({ filter, amount, sizes, visibility }: CardListType) {
                                 <Card item={item} sizes={sizes.card} />
                             </div>
                         )
-                    }) : [...Array(amount)].map((e, i) => {
+                    }) : [...Array(amount)].map((i) => {
                         return (<div key={`${filter}${i}`} className={`${sizes.card} relative bg-black bg-opacity-50 rounded-[17px]`}><div className="loader"></div></div>)
                     })
                 }

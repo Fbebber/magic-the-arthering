@@ -2,6 +2,8 @@ import { useCallback, useEffect } from "react";
 import useCardPageStore from "../../store/CardPage";
 import { formatContent, formatDate, manaConverter } from "../../utils/CardPage";
 import ImagePreview from "./ImagePreview";
+import CardType from "../../types/Card";
+import RarityColorType from "../../types/RarityColor";
 
 const rarityColor = {
     common: 'text-white',
@@ -14,7 +16,7 @@ function CardPage() {
     const card = useCardPageStore(state => state.card);
     const setCard = useCardPageStore(state => state.setCard);
 
-    const escFunction = useCallback((event) => {
+    const escFunction = useCallback((event: { key: string; }) => {
         if (event.key === "Escape") {
             setCard(null);
         }
@@ -29,23 +31,27 @@ function CardPage() {
     }, [escFunction]);
 
     if (card !== null) {
-        const { name, type_line, released_at, artist, rarity } = card;
+        const { name, type_line, released_at, artist, rarity, image_uris, flavor_text, oracle_text, mana_cost, power, toughness }: CardType = card;
 
-        const { image_uris, flavor_text, oracle_text, colors, mana_cost, power, toughness } = card;
+        const rarityRef = rarity !== undefined ? rarity : 'common';
+        const oracleRef = oracle_text !== undefined ? oracle_text : '';
+        const releasedAtRef = released_at !== undefined ? released_at : '';
+        const manaCostRef = mana_cost !== undefined ? mana_cost : '';
 
         return (
             <div className="fixed top-0 left-0 bottom-0 right-0 w-full h-full bg-black bg-opacity-90 z-20 flex items-center">
                 <div className="flex-1 h-full flex items-center justify-center relative flex-col">
-                    <ImagePreview image_uris={image_uris} flavor_text={flavor_text} />
+                    <ImagePreview image_uris={image_uris} flavor_text={flavor_text ? flavor_text : ''} />
                 </div>
                 <div className={`ml-auto h-full text-slate-200 w-5/12 flex`} style={{ backgroundImage: `linear-gradient(-15deg, #002438, #340e28)` }}>
                     <div className="p-8 leading-tight flex-1 border-l border-l-slate-700">
-                        <div className="text-2xl flex flex-wrap gap-2 items-center"><b>{name}</b> <div className="inline-flex gap-1">{manaConverter(mana_cost)}</div></div>
+                        <div className="text-2xl flex flex-wrap gap-2 items-center"><b>{name}</b> {manaCostRef !== '' && <div className="inline-flex gap-1">{manaConverter(manaCostRef)}</div>}
+                        </div>
                         <div className="text-slate-300 text-md">{type_line}</div>
-                        <div className={rarityColor[rarity]}>{rarity}</div>
+                        <div className={rarityColor[rarityRef as keyof RarityColorType]}>{rarity}</div>
                         <div className=" pb-5 mb-5 border-b border-slate-700 "></div>
                         <p className=" pr-12">
-                            {formatContent(oracle_text)}
+                            {oracleRef !== '' && formatContent(oracleRef)}
                             {typeof flavor_text !== 'undefined' && <>
                                 {oracle_text !== '' && <><br /><br /></>}
                                 <span className="text-slate-400">
@@ -63,10 +69,12 @@ function CardPage() {
                                 <div className="text-gray-400 text-xs uppercase">Artist</div>
                                 {artist}
                             </div>
-                            <div className="">
-                                <div className="text-gray-400 text-xs uppercase">Released</div>
-                                {formatDate(released_at)}
-                            </div>
+                            {releasedAtRef !== '' &&
+                                <div className="">
+                                    <div className="text-gray-400 text-xs uppercase">Released</div>
+                                    {formatDate(releasedAtRef)}
+                                </div>
+                            }
                         </div>
                         <div className=" pb-5 mb-5 border-b border-slate-700"></div>
                         <div className="rounded-md overflow-hidden border border-slate-700">

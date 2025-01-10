@@ -1,14 +1,15 @@
 import { create } from 'zustand';
+import CardType from '../types/Card';
 
 
 type CardPageStoreType = {
-    card: null | object,
-    setCard: (card: object) => void;
+    card: null | CardType,
+    setCard: (card: CardType | null) => void;
 }
 
 const useCardPageStore = create<CardPageStoreType>((set) => ({
     card: null,
-    setCard: (card: object) => set(() => ({ card: card })),
+    setCard: (card) => set(() => ({ card: card })),
 }));
 
 export default useCardPageStore;

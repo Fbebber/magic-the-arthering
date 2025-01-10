@@ -1,15 +1,16 @@
-import { useCallback, useEffect } from "react";
+import { ReactNode, useCallback, useEffect } from "react";
 
-function Modal({ children, setVisibility, visibility = true }) {
+function Modal({ children, setVisibility, visibility = true }: { children: ReactNode | JSX.Element | JSX.Element[], setVisibility: (arg0: boolean) => void, visibility: boolean }) {
 
-    const escFunction = useCallback((event) => {
+    const escFunction = useCallback((event: KeyboardEvent) => {
         if (event.key === "Escape") {
             setVisibility(false);
         }
     }, []);
 
-    const clickOutside = useCallback((event) => {
-        if (event.target.classList.contains('jsModalRef')) {
+    const clickOutside = useCallback((e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains('jsModalRef')) {
             setVisibility(false);
         }
     }, []);

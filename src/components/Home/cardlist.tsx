@@ -1,7 +1,7 @@
 import useCardListStore from "../../store/CardList";
 import CardList from "../CardList";
 
-function CardListWrapper({ currentFilter }) {
+function CardListWrapper({ currentFilter }: { currentFilter: string }) {
     const config = { sizes: { container: 'h-[355px]', card: 'w-[244px] h-[340px]' }, amount: 4 };
     const key = useCardListStore((state) => state.key);
     console.log(key);

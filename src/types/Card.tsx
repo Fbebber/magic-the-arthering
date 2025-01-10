@@ -1,20 +1,20 @@
 type CardType = {
-    id: string,
+    id?: string,
     name: string,
-    artist: string,
+    artist?: string,
     image_uris: {
         normal: string,
         art_crop: string,
     },
-    power: string,
-    toughness: string,
-    rarity: string,
-    mana_cost: string,
-    colors: string[],
-    type_line: string,
-    flavor_text: string,
-    oracle_text: string,
-    released_at: string,
+    power?: string,
+    toughness?: string,
+    rarity?: string,
+    mana_cost?: string,
+    colors?: string[],
+    type_line?: string,
+    flavor_text?: string,
+    oracle_text?: string,
+    released_at?: string,
 }
 
 export default CardType;

@@ -1,30 +1,11 @@
-const gradientBorder = function (colors: string[], CardColors) {
-    let gradientRef = ', ' + CardColors['A'];
-
-    if (colors.length > 0) {
-        gradientRef = '';
-        colors.map(function (item: string) {
-            gradientRef += `, ${CardColors[item]}`;
-        });
-
-        if (colors.length === 1) {
-            gradientRef += gradientRef;
-        }
-    } else {
-        gradientRef += gradientRef;
-    }
-
-    return gradientRef;
-}
-
-function formatDate(date) {
+function formatDate(date: string) {
     const dateSplit = date.split('-');
-    let dateFormat = dateSplit[2] + '/' + dateSplit[1] + '/' + dateSplit[0];
+    const dateFormat = dateSplit[2] + '/' + dateSplit[1] + '/' + dateSplit[0];
     return dateFormat
 }
 
-function manaConverter(manaArray) {
-    let manaRef = manaArray;
+function manaConverter(manaArray: string) {
+    let manaRef: string | string[] = manaArray;
     if (manaArray !== '') {
         manaRef = manaArray.replaceAll('{', '').replaceAll('}', ',').replaceAll('/', '').split(',');
         manaRef.pop();
@@ -33,7 +14,7 @@ function manaConverter(manaArray) {
     return manaRef
 }
 
-function manaConverTerImg(mana) {
+function manaConverTerImg(mana: string[]) {
     return (
         mana.map(function (item, index) {
             return <span key={index + 'manaconvert'} className={`card-symbol-${item}`}></span>
@@ -41,15 +22,15 @@ function manaConverTerImg(mana) {
     )
 }
 
-function formatName(name, id) {
+function formatName(name: string, id: number) {
     console.log(name.split(' // ')[id]);
     return name.split(' // ')[id];
 }
 
-function formatContent(content) {
-    let parsedContent = (function () {
+function formatContent(content: string) {
+    const parsedContent = (function () {
 
-        let newContent = content.replaceAll('\n', 'breaksplitbrbreaksplit');
+        let newContent: string | string[] = content.replaceAll('\n', 'breaksplitbrbreaksplit');
         newContent = newContent.replaceAll('{1}', `breaksplit1breaksplit`);
         newContent = newContent.replaceAll('{2}', `breaksplit2breaksplit`);
         newContent = newContent.replaceAll('{3}', `breaksplit3breaksplit`);
@@ -75,7 +56,7 @@ function formatContent(content) {
 
         newContent = newContent.split('breaksplit');
 
-        var newArray = newContent.map(function (i, index) {
+        const newArray = newContent.map(function (i, index) {
             if (i === 'br') {
                 return <span key={index + 'formatcontent'} className="mb-1.5 block"></span>;
             }
@@ -93,4 +74,4 @@ function formatContent(content) {
     return parsedContent;
 }
 
-export { formatName, formatContent, manaConverTerImg, gradientBorder, formatDate, manaConverter };
+export { formatName, formatContent, manaConverTerImg, formatDate, manaConverter };

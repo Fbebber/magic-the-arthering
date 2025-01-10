@@ -1,17 +1,9 @@
 import { useContext } from "react";
 import CardListContext from "../../context/CardList";
 import useCardPageStore from "../../store/CardPage";
-import VoteBtn from "./votebtn";
+import VoteBtn from "./voteBtn";
+import CardType from "../../types/Card";
 
-
-type CardType = {
-    name: string,
-    id: string,
-    image_uris: {
-        normal: string,
-        art_crop: string,
-    },
-}
 
 function Card({ item, sizes }: { item: CardType, sizes: string }) {
 
@@ -19,11 +11,6 @@ function Card({ item, sizes }: { item: CardType, sizes: string }) {
     const { cardSelect } = useContext(CardListContext);
 
     const image = item.image_uris;
-
-    // if (typeof image === 'undefined') {
-    //     image = item.card_faces[0].image_uris;
-    //     console.log(item.name);
-    // }
 
     let isThisCard = false;
     let listVoted = false;
@@ -44,7 +31,7 @@ function Card({ item, sizes }: { item: CardType, sizes: string }) {
                 </div>
                 <img src={image.normal} className=" rounded-[17px]" />
             </div>
-            <VoteBtn id={item.id} />
+            <VoteBtn id={item.id ? item.id : ''} />
 
         </div>
     )
