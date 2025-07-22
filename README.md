@@ -8,8 +8,7 @@ The objective is to create a fun ambience for those who loves MTG art.
 npm install
 
 npm run dev
-npm run tailwind
 
 // Generate cards with timer (5 minutes each)
-npm run json
+node server
 ```
